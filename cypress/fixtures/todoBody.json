@@ -1,0 +1,13 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "todo": "Finish the Accumulus coding challenge",
+      "completed": true,
+      "userId": 26
+    }
+  ],
+  "total": 10,
+  "skip": 0,
+  "limit": 30
+}
