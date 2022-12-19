@@ -1,6 +1,7 @@
 describe('TODO API Tests', () => {
   let todosBody
   let tokens = ['valid', 'invalid']
+  let toDoIds = [1, 2]
   beforeEach(() => {
     // Create TODO
     cy.fixture('todoBody').then((body) => {
@@ -15,7 +16,7 @@ describe('TODO API Tests', () => {
     });
   });
 
-  [1, 2].forEach(id => {
+  toDoIds.forEach(id => {
     it(`TODO GET - by id: ${id}`, () => {
       cy.request(`/api/v1/todo/${id}`).then(todos => {
         // Add if/else statement
@@ -26,7 +27,7 @@ describe('TODO API Tests', () => {
   });
 
   tokens.forEach(token => {
-    it(`Todo - GET with token ${token}`, () => {
+    it(`TODO - GET with token ${token}`, () => {
       cy.request({
         method: 'GET',
         url: '/api/v1/todo/',
