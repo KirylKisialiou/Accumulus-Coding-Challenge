@@ -1,5 +1,6 @@
 describe('TODO API Tests', () => {
   let todosBody
+  let endpoint = '/api/v1/todo/';
   let tokens = ['valid', 'invalid']
   let toDoIds = [1, 2]
   beforeEach(() => {
@@ -10,7 +11,7 @@ describe('TODO API Tests', () => {
   });
 
   it('TODO GET Body', () => {
-    cy.request('/api/v1/todo').then(todos => {
+    cy.request(endpoint).then(todos => {
       expect(todos.status).to.eq(200);
       assert.deepEqual(todos.body, todosBody, 'Check TODO body');
     });
@@ -18,7 +19,7 @@ describe('TODO API Tests', () => {
 
   toDoIds.forEach(id => {
     it(`TODO GET - by id: ${id}`, () => {
-      cy.request(`/api/v1/todo/${id}`).then(todos => {
+      cy.request(`${endpoint}${id}`).then(todos => {
         // Add if/else statement
         expect(todos.status).to.eq(200);
         assert.deepEqual(todos.body, todosBody.todos[0], 'Check TODO body')
@@ -30,7 +31,7 @@ describe('TODO API Tests', () => {
     it(`TODO - GET with token ${token}`, () => {
       cy.request({
         method: 'GET',
-        url: '/api/v1/todo/',
+        url: endpoint,
         headers: {
           'auth': {
             'bearer': token
