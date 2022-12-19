@@ -1,29 +1,20 @@
-describe('TODO check response body', () => {
+describe('TODO API Tests', () => {
   let todosBody
-  before(() => {
+  let tokens = ['valid', 'invalid']
+  beforeEach(() => {
     // Create TODO
     cy.fixture('todoBody').then((body) => {
       todosBody = body
     })
   });
-  it('fetches Todo body - GET', () => {
+
+  it('TODO GET Body', () => {
     cy.request('/api/v1/todo').then(todos => {
+      expect(todos.status).to.eq(200);
       assert.deepEqual(todos.body, todosBody, 'Check TODO body');
     });
   });
-  after(() => {
-    // Clean up
-  });
-});
 
-describe('TODO - GET by ID', () => {
-  let todosBody
-  before(() => {
-    // Create TODO
-    cy.fixture('todoBody').then((body) => {
-      todosBody = body
-    })
-  });
   [1, 2].forEach(id => {
     it(`TODO GET - by id: ${id}`, () => {
       cy.request(`/api/v1/todo/${id}`).then(todos => {
@@ -33,16 +24,7 @@ describe('TODO - GET by ID', () => {
       });
     });
   });
-  after(() => {
-    // Clean up
-  });
-});
 
-describe('TODO - GET Auth', () => {
-  before(() => {
-    // Create TODO
-  });
-  let tokens = ['valid', 'invalid']
   tokens.forEach(token => {
     it(`Todo - GET with token ${token}`, () => {
       cy.request({
@@ -60,6 +42,7 @@ describe('TODO - GET Auth', () => {
     });
   });
 });
+
 after(() => {
   // Clear data
 });
